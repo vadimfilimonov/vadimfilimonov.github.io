@@ -1,21 +1,19 @@
 # vadimfilimonov.github.io
 
-Landing page about me.
-
 ## Setup
 
 ```sh
-npm install
+make install
 ```
 
 ## Run
 
 ```sh
-npm start
+make serve
 ```
 
-## Run lint
+## Build
 
 ```sh
-npm run lint
+make build
 ```
