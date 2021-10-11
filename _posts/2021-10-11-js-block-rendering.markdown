@@ -5,34 +5,35 @@ date:   2021-10-11 18:00:00 +0300
 categories: frontend
 ---
 
-## Задача
+## Task
 
-Есть [API](https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks), который в ответ на запрос отдает json со списком фреймворков и их описанием. Необходимо на его основе отрендерить карточки.
+There is an [API](https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks), which in response to the request returns a json with a list of frameworks and their descriptions. We need to render cards based on it.
 
 ![Cards](https://sun9-86.userapi.com/impg/Gikuh5C_7CJjQWW6LXDVFu6GDzPGSP_eF-Go9w/GHtQ_aZJ5os.jpg?size=674x462&quality=96&sign=0e72025efff28459e34e6a4b8b1f7faf&type=album)
 
-## Алгоритм
-1. Получить список;
-2. Обработать список;
-3. Отрендерить в HTML.
+## Algorithm
 
-### 1. Получить список
+1. Get list;
+2. Process the list;
+3. Render it into HTML.
 
-Для данной статьи я подготовил тестовые данные, которые можно получить по адресу:
+### 1. Get list
+
+I have prepared test data for this article, which can be obtained at:
 
 ```
 https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks
 ```
 
-Чтобы сделать HTTP запрос — используйте метод [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch):
+To make an HTTP request - use the method [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch):
 
 {% highlight css %}
 fetch("https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks")
 {% endhighlight %}
 
-### 2. Обработать список
+### 2. Process the list
 
-Вот как выглядит json, который мы получаем:
+This is what the json we get looks like:
 
 {% highlight json %}
 {
@@ -43,18 +44,18 @@ fetch("https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks")
       "text": "React is an open-source...
 {% endhighlight %}
 
-Напишем функцию `buildHTML`, которая на вход будет принимать JSON, а отдавать строку, которую мы в будущем используем как HTML:
+Let's write a function `buildHTML` that will take JSON as input and output a string that we will use as HTML in the future:
 
 {% highlight javascript %}
-// HTTP запрос
+// HTTP request
 fetch("https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks")
-  // переводим ответ в json
+  // convert the response to json
   .then(response => response.json())
-  // конвертируем в html
+  // convert to html
   .then(buildHTML)
 {% endhighlight %}
 
-Определение функции:
+Definition of function:
 
 {% highlight javascript %}
 const buildHTML = ({ list }) =>
@@ -66,23 +67,23 @@ const buildHTML = ({ list }) =>
   `)).join("");
 {% endhighlight %}
 
-### 3. Отрендерить в HTML
+### 3. Render it into HTML
 
 {% highlight javascript %}
 fetch("https://private-531a0-vadimfilimonovblog.apiary-mock.com/frameworks")
   .then(response => response.json())
   .then(buildHTML)
-  // полученный результат передает в функцию render
+  // The result is sent to the render function
   .then(render);
 {% endhighlight %}
 
-В файле HTML создадим пустой контейнер, куда будем вставлять карточки:
+In the HTML file create an empty container, where we will insert the cards:
 
 {% highlight html %}
 <div class="container"></div>
 {% endhighlight %}
 
-Работа функции render сводится лишь к использованию свойства [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML):
+The work of the render function comes down to just using the property [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML):
 
 {% highlight javascript %}
 const render = (html) => {
@@ -93,7 +94,7 @@ const render = (html) => {
 
 ![Result](https://sun9-8.userapi.com/impg/YNDIxW64gsC2v3l2HzRqr9U8RgB82Os4vdYI3g/akmlzM5vrHA.jpg?size=693x531&quality=96&sign=a83c8b268137c0d35e4db9789fbf0446&type=album)
 
-Полную версию кода смотрите на [codepen](https://codepen.io/vadimfilimonov/pen/QWEzLow).
+See the full version of the code at [codepen](https://codepen.io/vadimfilimonov/pen/QWEzLow).
 
 ## Additional materials
 
